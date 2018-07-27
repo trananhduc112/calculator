@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MÁY TÍNH</title>
+    <link rel="stylesheet" href="./bootstrap-4.1.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="test.css">
+</head>
+<body>
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="bg-secondary calculator " >
+            <div id="board" class="border-bottom p-2 pt-5 d-flex justify-content-end align-content-end">
+            </div>
+            <div class="row box">
+                <div class="col-3 key">
+                    <button class="text-30 bg-danger" onclick="clears()">AC</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="text-30" onclick="clears()">C</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="text-30 number" onclick="del()">DEL</button>
+                </div>
+                <div class="col-3 key ">
+                    <button class="bg-warning text-white text-34" id="lock"  onclick="operator('/')">&#247</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="text-30 number"  onclick="math(7)">7</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="text-30 number"   onclick="math(8)">8</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="text-30 number"  onclick="math(9)">9</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="bg-warning text-white text-34" id="lock"  onclick="operator('*')">&#215</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="text-30 number"  onclick="math(4)">4</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="text-30 number"  onclick="math(5)">5</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="text-30 number"  onclick="math(6)">6</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="bg-warning text-white text-34" id="lock"  onclick="operator('-')">&#8722</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="text-30 number"  onclick="math(1)">1</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="text-30 number"  onclick="math(2)" >2</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="text-30 number"  onclick="math(3)">3</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="bg-warning text-white text-34" id="lock" onclick="operator('+')">&#43</button>
+                </div>
+                <div class="col-6 key">
+                    <button class="text-30"  onclick="math(0)">0</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="text-30" onclick="maths()">.</button>
+                </div>
+                <div class="col-3 key">
+                    <button class="bg-warning text-white text-34" id="lock"  onclick="calculator()">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script >
+        var text = "" ;
+        var x = [] ;
+        var z = 0 ;
+        function clears() {
+            text = "";
+            x = [];
+            document.getElementById('board').innerHTML = text ;
+        }
+        function del(){
+            text = text.slice(0,-1);
+            document.getElementById("board").innerHTML = text ;
+        }
+        function math (a) {
+           text += a ;
+            document.getElementById("board").innerHTML = text ;
+            //document.getElementById("lock").setAttribute("disabled","false");
+        }
+        function maths (){
+           text += '.';
+           console.log(text);
+           document.getElementById('board').inner = text ;
+        }
+        function operator (b) {
+            //document.getElementById("lock").setAttribute("disabled","true");
+            z++;
+            if (z==1){
+                x.push(text);
+                x.push(b);
+                text = "";
+                console.log(z);
+            }
+            else {
+                var t = x.length-1;
+                console.log(x);
+                if (text == ""){
+                     x.splice(t,1);
+                     x.push(b);
+                     console.log(x)
+                }
+                else{
+                    calculator();
+                    x.push(text);
+                    x.push(b);
+                    text = "";
+                }
+            }
+        }
+        function calculator() {
+            x.push(text);
+            s = "" ;
+            for (var i=0 ; i < x.length ;i++ ){
+                s += x[i] ;
+            }
+            text = eval(s);
+            x = [] ;
+            document.getElementById("board").innerHTML = text ;
+            console.log(s);
+        }
+    </script>
+</body>
+</html>
